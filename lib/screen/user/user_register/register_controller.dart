@@ -12,11 +12,7 @@ final registerProvider = StateNotifierProvider<RegisterController, RegisterGener
 class RegisterController extends StateNotifier<RegisterGeneric>{
   RegisterController():super(RegisterGeneric());
 
-  Future<String?> signup({
-    required String email,
-    required String password,
-    required String confirmPassword
-})async{
+  Future<String?> signup({required String email, required String password, required String confirmPassword})async{
 
     state = state.update(isLoading: true);
 
@@ -46,11 +42,6 @@ class RegisterController extends StateNotifier<RegisterGeneric>{
     }else{
       return apiResponse.data.toString();
     }
-
-
-
-
-
   }
 
 }
