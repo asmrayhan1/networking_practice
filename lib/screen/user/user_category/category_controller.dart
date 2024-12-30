@@ -4,15 +4,37 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:networking_practice/main.dart';
 import 'package:networking_practice/screen/user/user_category/category_generic.dart';
+import 'package:sembast/sembast.dart';
 
 import '../../../core/network/api.dart';
 import '../../../core/response/api_response.dart';
+import '../../../database/local/database_helper.dart';
 import '../../model/category/category_model.dart';
+import '../../model/pair/pair.dart';
 
 final categoryProvider = StateNotifierProvider<CategoryController, CategoryGeneric> ((ref) => CategoryController());
 
 class CategoryController extends StateNotifier<CategoryGeneric> {
   CategoryController() : super(CategoryGeneric());
+
+  static final _store = intMapStoreFactory.store('my_category'); // Local database
+
+  // Local database
+  getOfflineData() async {
+    final db = await DatabaseHelper.getDatabase();
+    final finder = Finder();  // You can customize the Finder if needed (for filtering, sorting, etc.)
+    final data =  await _store.find(db, finder: finder);
+
+    // Convert each record into a Pair<int, CarModel>
+    List<Pair<int, CategoryModel>> category = data.map((e) {
+      // Converting the Map<String, dynamic> (e.value) into CarModel using fromJson
+      CategoryModel tmp = CategoryModel.fromJson(e.value);
+      return Pair<int, CategoryModel>(e.key, tmp);  // Creating a Pair with key and CarModel
+    }).toList();
+
+    state = state.update(newCategory: category);
+  }
+
 
   Future<String?> addCategory({required String name, required String description})async{
 
@@ -67,11 +89,18 @@ class CategoryController extends StateNotifier<CategoryGeneric> {
     if (response.statusCode>=200 && response.statusCode<300) {
       List<CategoryModel> myList = [];
       try {
+        final db = await DatabaseHelper.getDatabase();
+        // Clear all data from the store
+        await _store.delete(db); // Local database
+
         for (var e in (apiResponse.data as List)){
           CategoryModel category = CategoryModel.fromJson(e as Map<String, dynamic>);
           myList.add(category);
+
+          await _store.add(db, category.toJson());  // Add a new record
         }
         state = state.update(currentCategory: myList);
+        await getOfflineData();
       } catch (e){
         print("Error Found in Category");
       }
