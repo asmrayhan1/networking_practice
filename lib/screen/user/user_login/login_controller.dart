@@ -1,10 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
-import 'package:http/io_client.dart';
-
 import '../../../core/network/api.dart';
 import '../../../core/response/api_response.dart';
 import '../../model/login/login_model.dart';
@@ -18,8 +14,6 @@ class LoginController extends StateNotifier<LoginGeneric>{
   Future<String?> login({required String email, required String password})async{
 
     state = state.update(isLoading: true);
-
-
 
     Map<String, dynamic> payload = {
       "email":email,

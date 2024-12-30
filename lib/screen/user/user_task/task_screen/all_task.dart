@@ -65,7 +65,7 @@ class _AllTaskState extends ConsumerState<AllTask> {
           ),
         ),
         _internet? home.tmpTask.isEmpty? CustomContainer(message: "No task Found") : OfflineTaskData()
-            : home.myTask.isEmpty? CustomContainer(message: "No task Found!") : GetTaskData()
+            : home.myTask.isEmpty? CustomContainer(message: "No task Found!") :GetTaskData()
       ],
     );
   }

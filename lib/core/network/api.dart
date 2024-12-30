@@ -1,6 +1,6 @@
 class Api{
 
-  static const String BASE_URL = "https://task_screen-backend-deployment-latest.onrender.com/api/v1";
+  static const String BASE_URL = "https://task-backend-deployment-latest.onrender.com/api/v1";
 
   static const String REGISTER = "/auth/register";
 
@@ -11,8 +11,8 @@ class Api{
   static const String DELETEMYCATEGORY = "/category/delete-category/";
   static const String UPDATECATEGORY = "/category/update-category/";
 
-  static const String CREATETASK = "/task_screen/create-task_screen";
-  static const String GETMYTASk = "/task_screen/my-tasks";
-  static const String DELETETMYTASk = "/task_screen/delete-task_screen/";
-  static const String UPDATETASk = "/task_screen/update-task_screen/";
+  static const String CREATETASK = "/task/create-task_screen";
+  static const String GETMYTASk = "/task/my-tasks";
+  static const String DELETETMYTASk = "/task/delete-task_screen/";
+  static const String UPDATETASk = "/task/update-task_screen/";
 }

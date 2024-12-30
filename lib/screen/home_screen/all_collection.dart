@@ -52,12 +52,12 @@ class _AllCollectionState extends ConsumerState<AllCollection> {
                         subtitle: Text(maxLines: 1, "${home.tmpTask[index].second.description}", style: TextStyle(color: Colors.white, fontSize: 18, overflow: TextOverflow.ellipsis)),
                         trailing: GestureDetector(
                             onTap: () {
-                              ToastUtil.showToast(context: context, message: "No internet connection found!");
+                              //ToastUtil.showToast(context: context, message: "No internet connection found!");
                             },
                             child: Icon(Icons.delete, color: Colors.white)
                         ),
                         onTap: () {
-                          ToastUtil.showToast(context: context, message: "No internet connection found!");
+                          //ToastUtil.showToast(context: context, message: "No internet connection found!");
                           print("Tapped on ${index}");
                         },
                       ),

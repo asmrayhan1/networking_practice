@@ -7,7 +7,7 @@ class ToastUtil{
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        duration: Duration(seconds: 4),
+        duration: Duration(seconds: 2),
         backgroundColor: isWarning?Colors.red: Colors.green,
       ),
     );
